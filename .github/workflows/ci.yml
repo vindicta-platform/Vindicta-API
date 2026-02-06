@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   pull_request:
-    branches: [main]
+    branches: [main, master]
 
 jobs:
   test:
@@ -66,3 +66,29 @@ jobs:
         with:
           name: openapi-spec
           path: openapi.json
+
+  convert-to-draft:
+    name: Convert to Draft on Failure
+    runs-on: ubuntu-latest
+    needs: [test, openapi]
+    if: failure() && github.event_name == 'pull_request'
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Convert PR to Draft
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const mutation = `mutation($id: ID!) {
+              convertPullRequestToDraft(input: {pullRequestId: $id}) {
+                pullRequest { isDraft }
+              }
+            }`;
+            try {
+              await github.graphql(mutation, {
+                id: context.payload.pull_request.node_id
+              });
+              core.notice('PR converted to draft due to CI failure');
+            } catch (error) {
+              core.warning(`Could not convert to draft: ${error.message}`);
+            }
