@@ -9,6 +9,8 @@ Constitution Compliance:
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from vindicta_api.rate_limiter import RateLimitMiddleware, RateLimiter, RateLimitConfig
+
 app = FastAPI(
     title="Vindicta API",
     description="REST API for the Vindicta Platform",
@@ -26,6 +28,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Rate limiting middleware (free tier: 10 RPM)
+rate_limiter = RateLimiter(RateLimitConfig(requests_per_minute=10, burst_capacity=15))
+app.add_middleware(RateLimitMiddleware, limiter=rate_limiter)
+
 
 @app.get("/health", tags=["System"])
 async def health_check() -> dict[str, str]:
@@ -40,4 +46,5 @@ async def api_status() -> dict[str, str | bool]:
         "version": "0.1.0",
         "gas_tank_active": True,
         "gemini_configured": False,  # TODO: Check actual config
+        "rate_limiting": True,
     }
