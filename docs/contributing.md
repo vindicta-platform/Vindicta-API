@@ -17,5 +17,18 @@ pytest tests/ -v
 - Type hints required
 - Async-first design
 
+## Pre-Commit Hooks (Required)
+
+All developers **must** install and run pre-commit hooks before committing. This ensures:
+- All markdown links are validated
+- Code quality (Ruff) is enforced
+
+### Setup
+
+```bash
+uv pip install pre-commit
+pre-commit install
+```
+
 ## License
 MIT
