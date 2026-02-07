@@ -1,10 +1,10 @@
 # Feature Proposal: API Rate Limiting & DDoS Protection
 
-**Proposal ID**: FEAT-014  
-**Author**: Unified Product Architect (Autonomous)  
-**Created**: 2026-02-01  
-**Status**: Draft  
-**Priority**: Critical  
+**Proposal ID**: FEAT-014
+**Author**: Unified Product Architect (Autonomous)
+**Created**: 2026-02-01
+**Status**: Draft
+**Priority**: Critical
 
 ---
 
@@ -97,13 +97,13 @@ Vindicta-API/
 ```python
 class AbuseDetector:
     """Detect and block abusive patterns."""
-    
+
     patterns = {
         'credential_stuffing': {'login_failures': 10, 'window': 300},
         'scraping': {'unique_endpoints': 50, 'window': 60},
         'enumeration': {'404_responses': 20, 'window': 60},
     }
-    
+
     def check(self, request: Request) -> Optional[AbuseType]:
         """Check if request matches abuse pattern."""
 ```
@@ -125,18 +125,18 @@ Retry-After: 60  # (only on 429)
 ### User Stories
 
 #### US-001: Fair Access
-**As a** paying member  
-**I want** higher rate limits than free users  
+**As a** paying member
+**I want** higher rate limits than free users
 **So that** my subscription provides value
 
 #### US-002: Clear Feedback
-**As an** API consumer  
-**I want** rate limit headers in responses  
+**As an** API consumer
+**I want** rate limit headers in responses
 **So that** I can implement proper backoff
 
 #### US-003: Attack Protection
-**As a** platform operator  
-**I want** automatic abuse blocking  
+**As a** platform operator
+**I want** automatic abuse blocking
 **So that** the platform stays available
 
 ### Acceptance Criteria

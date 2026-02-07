@@ -15,27 +15,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       - name: Run linting
         run: uv run ruff check src/
-      
+
       - name: Run type checking
         run: uv run mypy src/
-      
+
       - name: Run tests
         run: uv run pytest tests/ -v --cov=src --cov-report=xml
-      
+
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
@@ -46,21 +46,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Install dependencies
         run: uv sync
-      
+
       - name: Generate OpenAPI spec
         run: uv run python -c "from src.main import app; import json; print(json.dumps(app.openapi(), indent=2))" > openapi.json
-      
+
       - name: Upload OpenAPI artifact
         uses: actions/upload-artifact@v4
         with:

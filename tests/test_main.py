@@ -15,8 +15,7 @@ from vindicta_api.main import app
 async def client():
     """Async test client - no real network I/O per Constitution XV."""
     async with AsyncClient(
-        transport=ASGITransport(app=app),
-        base_url="http://test"
+        transport=ASGITransport(app=app), base_url="http://test"
     ) as ac:
         yield ac
 
@@ -25,10 +24,10 @@ async def client():
 async def test_health_check(client: AsyncClient):
     """Health endpoint returns healthy status."""
     # Arrange - client fixture
-    
+
     # Act
     response = await client.get("/health")
-    
+
     # Assert
     assert response.status_code == 200
     data = response.json()
@@ -40,10 +39,10 @@ async def test_health_check(client: AsyncClient):
 async def test_api_status(client: AsyncClient):
     """API status returns version and Gas Tank state."""
     # Arrange - client fixture
-    
+
     # Act
     response = await client.get("/api/v1/status")
-    
+
     # Assert
     assert response.status_code == 200
     data = response.json()

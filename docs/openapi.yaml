@@ -4,18 +4,18 @@ info:
   version: 1.0.0
   description: |
     REST API for the Vindicta Platform - The competitive Warhammer 40k platform.
-    
+
     ## Authentication
     All endpoints (except `/health`) require Firebase Authentication JWT tokens.
     Include the token in the `Authorization: Bearer <token>` header.
-    
+
     ## Rate Limiting
     - **Free Tier**: 60 requests/minute per user
     - **Rate Limit Headers**: `X-RateLimit-Remaining`, `X-RateLimit-Reset`
-    
+
     ## Versioning
     API uses URL-based versioning (`/api/v1/`). See ADR-0006 for versioning policy.
-    
+
   contact:
     name: Vindicta Platform
     url: https://github.com/vindicta-platform

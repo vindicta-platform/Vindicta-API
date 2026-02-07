@@ -1,7 +1,7 @@
 # Vindicta-API Roadmap
 
-> **Vision**: Unified API gateway for all Vindicta services  
-> **Status**: Active Development  
+> **Vision**: Unified API gateway for all Vindicta services
+> **Status**: Active Development
 > **Last Updated**: 2026-02-03
 
 ---
