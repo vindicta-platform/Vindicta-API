@@ -1,4 +1,6 @@
-"""Vindicta API - FastAPI REST endpoints.
+"""Vindicta API Package.
 
-Constitution XVI compliant: All handlers are async-first.
+REST API for the Vindicta Platform.
 """
+
+__version__ = "0.1.0"
